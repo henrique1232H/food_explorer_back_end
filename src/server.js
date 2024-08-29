@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const routes = require("./routes/index");
-const migrationsRun = require("./database/sqlite/index");
+const migrationsRun = require("./database/sqlite/migrations");
 
 migrationsRun()
 
