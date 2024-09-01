@@ -4,14 +4,14 @@ const cors = require("cors");
 const routes = require("./routes/index");
 const migrationsRun = require("./database/sqlite/migrations");
 
-migrationsRun()
+migrationsRun();
 
-app.use(express.json());
 const PORT = 3338;
 
-app.use(routes);
 
-app.use(cors())
+app.use(express.json());
+app.use(cors());
+app.use(routes);
 
 app.listen(PORT, () => {
     console.log("Servidor funcionando")
