@@ -8,6 +8,5 @@ const authController =  new AuthController()
 
 routeAuth.post("/show", authController.show)
 routeAuth.post("/", authController.create);
-routeAuth.put("/update", authController.update)
 
-module.exports = routeAuth; 
+module.exports = routeAuth;

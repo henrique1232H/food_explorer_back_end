@@ -6,19 +6,23 @@ class authController {
         const {name, email, password} = req.body;
 
         const database = await sqlConnection();
-        
-        const passwordHashed =  await hash(password, 5)
-        console.log(passwordHashed)
+        const passwordHashed =  await hash(password, 5);
+        const checkIfEmailExists = await database.get("SELECT * FROM User WHERE email = (?)", [email]);
 
-        console.log(name, email, password);
 
-        database.run("INSERT INTO User (name, email, password) VALUES (?,?,?)", [name, email, passwordHashed])
+        if(checkIfEmailExists) {
+            return res.status(401).send({
+                message: "This email already exists"
+            });
+        };
+
+        database.run("INSERT INTO User (name, email, password) VALUES (?,?,?)", [name, email, passwordHashed]);
 
         return res.send({
-            message: "CRIADO"
-        })
+            message: "Create new user!"
+        });
 
-    }
+    };
 
     async show(req, res) {
         const {email, password} = req.body;
@@ -37,13 +41,7 @@ class authController {
         
         return res.send(user)
 
-    }
-
-    async update(req, res) {
-
-
-
-    }
+    }c
 }
 
 module.exports = authController
